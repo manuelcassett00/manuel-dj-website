@@ -245,7 +245,7 @@
   .contact-btn:hover { border-color: var(--blue-ice); background: rgba(126,180,247,0.1); color: var(--blue-ice); }
   .contact-btn svg { width: 20px; height: 20px; flex-shrink: 0; }
   .social-row {
-    display: flex; gap: 1.4rem; align-items: center;
+    display: flex; gap: 1.4rem; align-items: center; justify-content: center;
     border-top: 1px solid rgba(255,255,255,0.1); padding-top: 2rem;
   }
   .social-icon {
@@ -607,7 +607,7 @@
     slides[currentSlide].classList.add('active');
     dots[currentSlide].classList.add('active');
   }
-  setInterval(() => goToSlide((currentSlide + 1) % slides.length), 3000);
+  setInterval(() => goToSlide((currentSlide + 1) % slides.length), 2500);
 
   // NAV SCROLL
   window.addEventListener('scroll', () => {

@@ -108,8 +108,8 @@
   .bio-inner {
     position: relative; z-index: 2;
     max-width: 800px; margin: 0 auto;
-    padding: 5rem 1.5rem;
-    display: flex; flex-direction: column; gap: 2.5rem; align-items: center;
+    padding: 2.5rem 1.5rem;
+    display: flex; flex-direction: column; gap: 1.2rem; align-items: center;
     text-align: center;
   }
   .section-label {
@@ -129,6 +129,20 @@
     color: var(--grey-light); margin-bottom: 1.4rem; text-align: center;
   }
   .bio-text p strong { color: var(--white); font-weight: 600; }
+  .bio-more {
+    max-height: 0; overflow: hidden; opacity: 0;
+    transition: max-height 0.6s ease, opacity 0.4s ease;
+  }
+  #bio.open .bio-more { max-height: 1200px; opacity: 1; }
+  .bio-toggle {
+    background: none; border: 1px solid rgba(255,255,255,0.25); color: var(--white);
+    font-size: 0.7rem; font-weight: 600; letter-spacing: 0.25em; text-transform: uppercase;
+    padding: 0.7rem 1.4rem; cursor: pointer; display: inline-flex; align-items: center; gap: 0.6rem;
+    transition: border-color 0.3s, color 0.3s;
+  }
+  .bio-toggle:hover { border-color: var(--blue-ice); color: var(--blue-ice); }
+  .bio-toggle .chev { display: inline-block; transition: transform 0.4s; }
+  #bio.open .bio-toggle .chev { transform: rotate(180deg); }
 
   hr.divider { border: none; border-top: 1px solid rgba(255,255,255,0.07); }
 
@@ -307,7 +321,7 @@
     .hero-name { font-size: clamp(4.5rem, 22vw, 7rem); }
     .hero-sub { font-size: 0.65rem; letter-spacing: 0.25em; }
     .slide-dots { right: 1.2rem; bottom: 1.5rem; }
-    #bio .bio-inner { padding: 3.5rem 1.2rem; gap: 1.5rem; }
+    #bio .bio-inner { padding: 2rem 1.2rem; gap: 1rem; }
     #events { padding: 3rem 1.2rem; }
     .section-title { font-size: clamp(2.4rem, 10vw, 4rem); }
     .event-name-link { font-size: 1.2rem; }
@@ -377,6 +391,7 @@
       <p>
         Con un approccio esclusivo ai suoni del presente, <strong>MANUEL</strong> migliora sempre l'atmosfera di ogni luogo in cui suona.
       </p>
+      <div class="bio-more">
       <p>
         Nato in Puglia, ha iniziato il suo viaggio musicale come DJ autodidatta all'età di 13 anni, ascoltando house music ed artisti sperimentali come <strong>Bonobo</strong> e <strong>Flume</strong>.
       </p>
@@ -389,7 +404,9 @@
       <p>
         I suoi set si basano su un approccio fluido, fondendo i confini tra vari stili musicali: dalla traccia sperimentale di nicchia alla melodia old fashion.
       </p>
+      </div>
     </div>
+    <button class="bio-toggle" onclick="toggleBio(this)"><span class="lbl">Leggi di più</span> <span class="chev">▾</span></button>
   </div>
 </section>
 
@@ -607,6 +624,13 @@
 </div>
 
 <script>
+  function toggleBio(btn) {
+    const bio = document.getElementById('bio');
+    const open = bio.classList.toggle('open');
+    btn.querySelector('.lbl').textContent = open ? 'Chiudi' : 'Leggi di più';
+    if (!open) bio.scrollIntoView({ behavior: 'smooth' });
+  }
+
   // SLIDESHOW — 2 slides only
   let currentSlide = 0;
   const slides = document.querySelectorAll('.hero-slide');
